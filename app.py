@@ -131,11 +131,14 @@ def predict_and_patch(text, tokenizer, model):
     disease_count = 0
     loc_count = 0
     
-    # Blacklist to prevent False Positives (Symptoms & Stopwords)
+    # Blacklist to prevent False Positives (Symptoms & Stopwords & Common Verbs)
     blacklist = {
         'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 
         'nausea', 'diarrhea', 'dizziness', 'weakness', 'pain', 'ache', 'signs', 
-        'symptoms', 'illness', 'and', 'the', 'in', 'of', 'to', 'a', 'an', 'or'
+        'symptoms', 'illness', 'and', 'the', 'in', 'of', 'to', 'a', 'an', 'or',
+        'causes', 'severe', 'brain', 'swelling', 'has', 'high', 'fatality', 'rate',
+        'is', 'are', 'was', 'were', 'been', 'being', 'have', 'had', 'do', 'does',
+        'did', 'can', 'could', 'should', 'would', 'may', 'might', 'must'
     }
     
     for i, label in enumerate(raw_labels):
