@@ -51,53 +51,32 @@ st.markdown("""
     /* Radio Button Styling - Clean White without selection highlight */
     div[data-testid="stSidebar"] div[role="radiogroup"] label {
         color: #ffffff !important;
-        background-color: transparent !important;
     }
 
-    /* FORCED REMOVAL of the selection box background from radio menu (version-independent) */
+    /* Force all elements inside the radio group to have transparent background/shadow (removes selection/hover highlights of all shapes/versions) */
+    div[data-testid="stSidebar"] div[role="radiogroup"] *,
+    div[data-testid="stSidebar"] div[role="radiogroup"] *::before,
+    div[data-testid="stSidebar"] div[role="radiogroup"] *::after {
+        background-color: transparent !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    /* Specifically target radio option wrappers and labels to remove borders */
     div[data-testid="stSidebar"] div[role="radiogroup"] > div,
-    div[data-testid="stSidebar"] div[role="radiogroup"] label,
-    div[data-testid="stSidebar"] div[role="radiogroup"] [data-testid="stMarkdownContainer"],
-    div[data-testid="stSidebar"] [data-testid="stWidgetLabel"] + div div {
-        background-color: transparent !important;
-        background: transparent !important;
+    div[data-testid="stSidebar"] div[role="radiogroup"] label {
         border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Target ALL possible selection states in the sidebar radio (both old .css- and new .st-emotion-cache- versions) */
-    [data-testid="stSidebar"] .st-emotion-cache-1offfwp,
-    [data-testid="stSidebar"] .st-emotion-cache-1cvow48,
-    [data-testid="stSidebar"] .st-emotion-cache-6q9sum,
-    [data-testid="stSidebar"] .st-emotion-cache-p5msec,
-    [data-testid="stSidebar"] .st-emotion-cache-1f806v0,
-    [data-testid="stSidebar"] [class*="css-1offfwp"],
-    [data-testid="stSidebar"] [class*="css-1cvow48"],
-    [data-testid="stSidebar"] [class*="css-6q9sum"],
-    [data-testid="stSidebar"] [class*="css-p5msec"],
-    [data-testid="stSidebar"] [class*="css-1f806v0"] {
-        background-color: transparent !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    /* Target hover and active states of the option wrappers and labels */
-    div[data-testid="stSidebar"] div[role="radiogroup"] > div:hover,
-    div[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-        background-color: transparent !important;
-        background: transparent !important;
     }
     
     /* Menyesuaikan warna bullet radio button menjadi putih (untuk div/span baru dan lama) */
-    input[type="radio"]:checked + div,
-    input[type="radio"]:checked + span {
+    div[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"]:checked + div,
+    div[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"]:checked + span {
         background-color: #ffffff !important;
         border-color: #ffffff !important;
     }
-    input[type="radio"] + div,
-    input[type="radio"] + span {
-        border-color: rgba(255,255,255,0.6) !important;
+    div[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"] + div,
+    div[data-testid="stSidebar"] div[role="radiogroup"] input[type="radio"] + span {
+        border: 2px solid rgba(255, 255, 255, 0.6) !important;
     }
 
     /* Menghilangkan scrollbar di sidebar */
