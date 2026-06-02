@@ -221,6 +221,10 @@ def predict_and_patch(text, tokenizer, model):
     for i, label in enumerate(raw_labels):
         word_clean = words[i].lower().strip('.,;:()[]"\'!?')
         
+        # Auto-correct/force "virus" to be part of the DISEASE entity if it follows one
+        if word_clean == 'virus' and ('DISEASE' in prev_label) and ('DISEASE' not in label):
+            label = 'I-DISEASE'
+            
         # Limit DISEASE to only words containing 'nipah', 'niv', 'henipavirus', or "virus" following a DISEASE
         if 'DISEASE' in label:
             is_valid_disease = False
