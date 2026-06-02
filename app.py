@@ -54,21 +54,26 @@ st.markdown("""
         background-color: transparent !important;
     }
 
-    /* REMOVE the white selection box background from radio menu */
-    div[data-testid="stSidebar"] .st-emotion-cache-6q9sum, 
-    div[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
+    /* FORCED REMOVAL of the white selection box background from radio menu */
+    div[data-testid="stSidebar"] [data-testid="stWidgetLabel"] + div div {
         background-color: transparent !important;
         border: none !important;
     }
     
-    /* Target the container that creates the white box background on selection */
-    div[data-testid="stSidebar"] [data-testid="stWidgetLabel"] + div {
+    /* Target ALL possible selection states in the sidebar radio */
+    [data-testid="stSidebar"] .st-emotion-cache-1offfwp,
+    [data-testid="stSidebar"] .st-emotion-cache-1cvow48,
+    [data-testid="stSidebar"] .st-emotion-cache-6q9sum,
+    [data-testid="stSidebar"] .st-emotion-cache-p5msec,
+    [data-testid="stSidebar"] .st-emotion-cache-1f806v0 {
         background-color: transparent !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
-    
-    /* Fix for latest Streamlit version selection highlight */
-    div[data-testid="stSidebar"] .st-emotion-cache-1offfwp,
-    div[data-testid="stSidebar"] .st-emotion-cache-1cvow48 {
+
+    /* Target the text container directly to ensure it has no background */
+    div[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
         background-color: transparent !important;
     }
     
