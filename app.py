@@ -28,6 +28,15 @@ st.markdown("""
         border-right: none !important;
     }
 
+    /* Menghilangkan scrollbar di sidebar agar lebih clean */
+    section[data-testid="stSidebar"]::-webkit-scrollbar {
+        display: none;
+    }
+    section[data-testid="stSidebar"] {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
     /* Memastikan teks menu atas tetap gelap/hitam agar kontras dengan putih */
     div[data-testid="stSidebar"] div[role="radiogroup"] label {
         background-color: transparent !important;
@@ -164,14 +173,6 @@ with st.sidebar:
     
     selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
     
-    # Memberi jarak agar info status turun ke area gradasi yang merah
-    st.markdown("<br><br><br><br><br>", unsafe_allow_html=True)
-    
-    # Memaksa warna putih pada teks bawah agar terlihat jelas di background merah
-    st.markdown("<hr style='border-top: 1px solid rgba(255,255,255,0.4);'>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #ffffff !important; font-weight: 500; text-shadow: 0px 1px 3px rgba(0,0,0,0.3);'>✅ <b>Status Model:</b> Ready</p>", unsafe_allow_html=True)
-    st.markdown("<p style='color: #ffffff !important; font-weight: 500; text-shadow: 0px 1px 3px rgba(0,0,0,0.3);'>🚀 <b>Version:</b> 2.1 (Model B)</p>", unsafe_allow_html=True)
-
 # --- MAIN CONTENT ---
 if selection == "Deskripsi":
     st.markdown("<h1 style='color: #1a1a1a !important;'>Tentang Project NiVScan</h1>", unsafe_allow_html=True)
