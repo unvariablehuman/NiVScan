@@ -16,8 +16,29 @@ st.markdown("""
     
     /* Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background-color: #f8f9fa !important;
-        border-right: 1px solid #eeeeee;
+        background-color: #ffffff !important;
+        border-right: 1px solid #ffcccc;
+    }
+    
+    /* Sidebar Radio Button Styling (Merah Putih) */
+    div[data-testid="stSidebarNav"] {
+        background-color: #ffffff !important;
+    }
+
+    /* Target the radio button active state */
+    div.st-emotion-cache-6q9sum.e1f987" [data-testid="stMarkdownContainer"] p {
+        color: #c10a0a !important;
+    }
+
+    /* Gaya khusus untuk pilihan menu (Radio) agar terlihat merah saat dipilih */
+    div[data-testid="stWidgetLabel"] p {
+        color: #c10a0a !important;
+        font-weight: bold;
+    }
+
+    /* Menyesuaikan warna bullet radio button */
+    input[type="radio"]:checked + div {
+        background-color: #c10a0a !important;
     }
     
     /* Force Light Mode Color for Sidebar elements */
