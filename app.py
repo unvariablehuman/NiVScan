@@ -1,5 +1,6 @@
 import streamlit as st
 import torch
+import re
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 # --- PAGE CONFIGURATION ---
@@ -249,10 +250,19 @@ def predict_and_patch(text, tokenizer, model):
 def render_entities(entities):
     html_text = ""
     for word, label in entities:
+        # Split word into punctuation prefix, core word, and punctuation suffix
+        match = re.match(r"^([^a-zA-Z0-9]*)(.*?)([^a-zA-Z0-9]*)$", word)
+        if match:
+            prefix, core, suffix = match.groups()
+            if not core:
+                prefix, core, suffix = "", word, ""
+        else:
+            prefix, core, suffix = "", word, ""
+
         if "DISEASE" in label:
-            html_text += f"<span class='tag-disease'>{word} <span class='tag-sub'>DISEASE</span></span> "
+            html_text += f"{prefix}<span class='tag-disease'>{core} <span class='tag-sub'>DISEASE</span></span>{suffix} "
         elif "LOCATION" in label:
-            html_text += f"<span class='tag-loc'>{word} <span class='tag-sub'>LOC</span></span> "
+            html_text += f"{prefix}<span class='tag-loc'>{core} <span class='tag-sub'>LOC</span></span>{suffix} "
         else:
             html_text += f"{word} "
     return html_text
