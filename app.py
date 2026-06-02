@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="NiVScan NER", page_icon="🦠", layout="wide")
 
-# --- CUSTOM CSS (LIGHT MODE & SIDEBAR) ---
+# --- CUSTOM CSS (FORCE LIGHT MODE & SIDEBAR) ---
 st.markdown("""
 <style>
     /* Global White Theme */
@@ -158,13 +158,13 @@ def render_entities(entities):
 with st.sidebar:
     st.markdown("<h2 style='text-align: center;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
     st.markdown("---")
-    selection = st.radio("Pilih Menu:", ["🏠 Deskripsi", "🔬 Demo Analisis"])
+    selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
     st.markdown("---")
     st.markdown("**Status Model:** ✅ Ready")
     st.markdown("**Version:** 2.1 (Model B)")
 
 # --- MAIN CONTENT ---
-if selection == "🏠 Deskripsi":
+if selection == "Deskripsi":
     st.markdown("<h1 style='color: #c10a0a !important;'>Tentang Project NiVScan</h1>", unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
@@ -192,7 +192,7 @@ if selection == "🏠 Deskripsi":
     st.markdown("### Statistik Project")
     st.image("https://raw.githubusercontent.com/unvariablehuman/NiVScan/main/Percobaan/Baru%20Banget/Model%20A/eda_label_distribution.png", caption="Distribusi Label dalam Dataset Pelatihan")
 
-elif selection == "🔬 Demo Analisis":
+elif selection == "Demo Analisis":
     st.markdown("<h1 style='color: #c10a0a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
     
     with st.spinner("Memuat Model XLM-RoBERTa..."):
@@ -210,7 +210,7 @@ elif selection == "🔬 Demo Analisis":
 
     user_input = st.text_area("Masukkan Kalimat Medis:", value=default_input, height=150)
 
-    if st.button("Analisis Teks 🔬"):
+    if st.button("Analisis Teks"):
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
             
@@ -221,7 +221,7 @@ elif selection == "🔬 Demo Analisis":
             with m_col3: st.metric("Location", loc_count)
 
             st.markdown("---")
-            st.markdown("### 🏷️ Hasil Ekstraksi")
+            st.markdown("### Hasil Ekstraksi")
             html_output = render_entities(entities)
             st.markdown(f"<div class='entity-box'>{html_output}</div>", unsafe_allow_html=True)
             
@@ -229,3 +229,5 @@ elif selection == "🔬 Demo Analisis":
                 filtered = [(w, l) for w, l in entities if l != 'O']
                 if filtered: st.table(filtered)
                 else: st.info("Tidak ada entitas yang terdeteksi.")
+        else:
+            st.warning("Silakan masukkan teks terlebih dahulu.")
