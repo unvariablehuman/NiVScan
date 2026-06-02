@@ -1,0 +1,8 @@
+streamlit
+spacy
+torch
+transformers
+sentencepiece
+protobuf
+pandas
+numpy
