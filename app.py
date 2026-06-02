@@ -22,27 +22,32 @@ st.markdown("""
         color: #1a1a1a !important;
     }
     
-    /* Sidebar Styling - Clean White */
+/* Sidebar Styling - Gradient Merah Putih */
     section[data-testid="stSidebar"] {
-        background-color: #ffffff !important;
-        border-right: 1px solid #eaeaea !important;
+        background: linear-gradient(180deg, #c10a0a 0%, #ffffff 100%) !important;
     }
     
-    /* Sidebar Text Colors (Mencegah teks menghilang) */
+    /* Sidebar Text Colors & Transparency */
     section[data-testid="stSidebar"] .stText, 
     section[data-testid="stSidebar"] h1, 
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] label,
     section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span {
-        color: #1a1a1a !important;
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #ffffff !important;
         background-color: transparent !important;
-        text-shadow: none !important;
+        text-shadow: 0px 0px 2px rgba(0,0,0,0.2) !important;
+    }
+
+    /* Hide the "keyboard_double_left" text bug */
+    [data-testid="stSidebarCollapseIcon"] {
+        display: none !important;
     }
 
     /* Sidebar Divider */
     section[data-testid="stSidebar"] hr {
-        border-top: 1px solid #eaeaea !important;
+        border-top: 1px solid rgba(255,255,255,0.3) !important;
     }
 
     /* Merapikan Radio Button (Menu) agar clean tanpa blok warna aneh */
@@ -170,12 +175,10 @@ def render_entities(entities):
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.markdown("<h2 style='text-align: center; color: #c10a0a !important;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
     st.markdown("---")
     selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
-    st.markdown("---")
-    st.markdown("**Status Model:** ✅ Ready")
-    st.markdown("**Version:** 2.1 (Model B)")
+    # Status Model and Version removed as requested
 
 # --- MAIN CONTENT ---
 if selection == "Deskripsi":
