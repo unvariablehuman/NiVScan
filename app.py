@@ -208,8 +208,15 @@ def render_entities(entities):
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.markdown("<h2 style='text-align: center; color: #c10a0a !important;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
-    st.markdown("<hr style='border-top: 1px solid #eaeaea;'>", unsafe_allow_html=True)
+    st.markdown("""
+    <div style='text-align: center; margin-bottom: 15px;'>
+        <h1 style='font-size: 34px !important; font-weight: 700 !important; color: #ffffff !important; margin: 0; padding: 0;'>🦠 NiVScan</h1>
+        <p style='font-size: 13px !important; font-weight: 500 !important; color: rgba(255, 255, 255, 0.8) !important; margin: 8px 0 0 0; padding: 0; letter-spacing: 0.3px;'>
+            - Nipah Virus Entity Extractor -
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown("<hr style='border-top: 1px solid rgba(255, 255, 255, 0.2); margin-top: 5px; margin-bottom: 20px;'>", unsafe_allow_html=True)
     
     selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
     
