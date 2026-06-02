@@ -1,0 +1,17 @@
+============================================================
+MODEL A - GOLD TEST EVALUATION RESULTS
+============================================================
+Model: Model A: CharCNN-BiLSTM-CRF Baseline
+Test Set: gold_test (Manual Review via Doccano)
+Sentences: 536
+Tokens: 11279
+Macro F1: 0.4914
+
+              precision    recall  f1-score   support
+
+     DISEASE     0.5659    0.6090    0.5867       289
+    LOCATION     0.8235    0.2609    0.3962       161
+
+   micro avg     0.6022    0.4844    0.5369       450
+   macro avg     0.6947    0.4349    0.4914       450
+weighted avg     0.6581    0.4844    0.5185       450

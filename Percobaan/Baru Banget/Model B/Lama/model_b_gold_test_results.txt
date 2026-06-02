@@ -1,0 +1,21 @@
+============================================================
+MODEL B - XLM-RoBERTa - GOLD TEST EVALUATION (COMPLETED)
+============================================================
+Model     : XLM-RoBERTa-base
+Fixes     : safe subword alignment + macro F1 + enumerate fix
+Sentences : 536
+Tokens    : 11279
+Macro F1  : 0.7204
+Macro P   : 0.6678
+Macro R   : 0.8289
+
+              precision    recall  f1-score   support
+
+     DISEASE     0.4409    0.8131    0.5718       289
+    LOCATION     0.8947    0.8447    0.8690       161
+
+   micro avg     0.5416    0.8244    0.6537       450
+   macro avg     0.6678    0.8289    0.7204       450
+weighted avg     0.6033    0.8244    0.6781       450
+Matthews Correlation Coefficient (MCC): 0.6224
+============================================================

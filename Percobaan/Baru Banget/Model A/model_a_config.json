@@ -1,0 +1,17 @@
+{
+  "model_type": "CharCNN_BiLSTM_CRF",
+  "word_vocab_size": 9131,
+  "char_vocab_size": 100,
+  "num_labels": 5,
+  "word_emb_dim": 100,
+  "char_emb_dim": 30,
+  "char_cnn_filters": 30,
+  "lstm_hidden": 256,
+  "lstm_layers": 2,
+  "dropout": 0.3,
+  "max_seq_len": 50,
+  "max_word_len": 15,
+  "batch_size": 32,
+  "lr": 0.001,
+  "seed": 42
+}

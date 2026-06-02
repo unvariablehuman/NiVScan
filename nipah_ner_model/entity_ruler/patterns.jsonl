@@ -1,0 +1,82 @@
+{"label":"DISEASE","pattern":[{"LOWER":"nipah"},{"LOWER":"virus"}]}
+{"label":"DISEASE","pattern":[{"LOWER":"encephalitis"}]}
+{"label":"DISEASE","pattern":[{"LOWER":"ensefalitis"}]}
+{"label":"DISEASE","pattern":[{"LOWER":"niv"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"fever"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"headache"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"cough"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"nausea"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"vomiting"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"fatigue"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"seizure"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"seizures"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"confusion"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"drowsiness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"dizziness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"disorientation"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"myalgia"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"difficulty"},{"LOWER":"breathing"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"shortness"},{"LOWER":"of"},{"LOWER":"breath"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"chest"},{"LOWER":"pain"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"muscle"},{"LOWER":"pain"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"muscle"},{"LOWER":"weakness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"sore"},{"LOWER":"throat"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"abdominal"},{"LOWER":"pain"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"brain"},{"LOWER":"swelling"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"loss"},{"LOWER":"of"},{"LOWER":"consciousness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"altered"},{"LOWER":"consciousness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"respiratory"},{"LOWER":"failure"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"respiratory"},{"LOWER":"distress"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"respiratory"},{"LOWER":"illness"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"respiratory"},{"LOWER":"infection"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"respiratory"},{"LOWER":"symptoms"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"acute"},{"LOWER":"respiratory"}]}
+{"label":"SYMPTOM","pattern":[{"LOWER":"inflammation"},{"LOWER":"of"},{"LOWER":"the"},{"LOWER":"brain"}]}
+{"label":"DISEASE","pattern":"Nipah"}
+{"label":"DISEASE","pattern":"nipah"}
+{"label":"DISEASE","pattern":"virus Nipah"}
+{"label":"DISEASE","pattern":"virus nipah"}
+{"label":"DISEASE","pattern":"NiV"}
+{"label":"DISEASE","pattern":"Nipah virus"}
+{"label":"DISEASE","pattern":"ensefalitis"}
+{"label":"DISEASE","pattern":"encephalitis"}
+{"label":"DISEASE","pattern":"NiV"}
+{"label":"SYMPTOM","pattern":"demam"}
+{"label":"SYMPTOM","pattern":"demam tinggi"}
+{"label":"SYMPTOM","pattern":"kejang"}
+{"label":"SYMPTOM","pattern":"kejang demam"}
+{"label":"SYMPTOM","pattern":"batuk"}
+{"label":"SYMPTOM","pattern":"sesak napas"}
+{"label":"SYMPTOM","pattern":"sesak"}
+{"label":"SYMPTOM","pattern":"mual"}
+{"label":"SYMPTOM","pattern":"muntah"}
+{"label":"SYMPTOM","pattern":"muntah darah"}
+{"label":"SYMPTOM","pattern":"sakit kepala"}
+{"label":"SYMPTOM","pattern":"sakit tenggorokan"}
+{"label":"SYMPTOM","pattern":"sakit perut"}
+{"label":"SYMPTOM","pattern":"pusing"}
+{"label":"SYMPTOM","pattern":"lemas"}
+{"label":"SYMPTOM","pattern":"lemah"}
+{"label":"SYMPTOM","pattern":"nyeri"}
+{"label":"SYMPTOM","pattern":"nyeri otot"}
+{"label":"SYMPTOM","pattern":"nyeri kepala"}
+{"label":"SYMPTOM","pattern":"koma"}
+{"label":"SYMPTOM","pattern":"tidak sadar"}
+{"label":"SYMPTOM","pattern":"gangguan kesadaran"}
+{"label":"SYMPTOM","pattern":"gangguan pernapasan"}
+{"label":"SYMPTOM","pattern":"radang otak"}
+{"label":"SYMPTOM","pattern":"sulit bernapas"}
+{"label":"SYMPTOM","pattern":"diare"}
+{"label":"SYMPTOM","pattern":"disorientasi"}
+{"label":"SYMPTOM","pattern":"kelelahan"}
+{"label":"SYMPTOM","pattern":"mengantuk"}
+{"label":"SYMPTOM","pattern":"tidak responsif"}
+{"label":"SYMPTOM","pattern":"rasa sakit"}
+{"label":"LOCATION","pattern":"Malaysia"}
+{"label":"LOCATION","pattern":"India"}
+{"label":"LOCATION","pattern":"Bangladesh"}
+{"label":"LOCATION","pattern":"Singapore"}
+{"label":"LOCATION","pattern":"Kerala"}
+{"label":"LOCATION","pattern":"Indonesia"}
+{"label":"LOCATION","pattern":"Philippines"}
+{"label":"LOCATION","pattern":"Filipina"}
