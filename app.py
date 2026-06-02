@@ -156,6 +156,37 @@ st.markdown("""
         opacity: 0.7;
         margin-left: 4px;
     }
+
+    /* Section Title with Left Accent Bar */
+    .section-title {
+        border-left: 5px solid #c10a0a;
+        padding-left: 12px;
+        color: #1a1a1a !important;
+        font-weight: 700;
+    }
+
+    /* Dataset Table Styling */
+    .dataset-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 15px;
+    }
+    .dataset-table th {
+        border-bottom: 2px solid #c10a0a;
+        color: #c10a0a !important;
+        font-weight: 600;
+        padding: 10px 8px;
+    }
+    .dataset-table td {
+        border-bottom: 1px solid #eeeeee;
+        padding: 10px 8px;
+        color: #333333;
+    }
+    .dataset-table tr:hover {
+        background-color: #fff8f8;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -249,6 +280,54 @@ if selection == "Deskripsi":
             <p><small style='color: #666;'>Powered by Streamlit Cloud</small></p>
         </div>
         """, unsafe_allow_html=True)
+
+    # Dataset Information Section
+    st.markdown("""
+    <div class='content-card'>
+        <h3 class='section-title' style='margin-top: 0;'>Dataset</h3>
+        <table class='dataset-table'>
+            <thead>
+                <tr>
+                    <th style='text-align: left;'>Sumber</th>
+                    <th>Bahasa</th>
+                    <th>Jumlah Kalimat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style='text-align: left;'>Dataset Manual Search</td>
+                    <td>ID/EN</td>
+                    <td>~300</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left;'>Google News Scraping</td>
+                    <td>ID/EN</td>
+                    <td>~302</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left;'>Kaggle Disease Symptom</td>
+                    <td>EN</td>
+                    <td>~105</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left;'>Wikipedia (ID+EN)</td>
+                    <td>ID/EN</td>
+                    <td>~252</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left;'>WHO + CDC</td>
+                    <td>EN</td>
+                    <td>~88</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left;'>PubMed NCBI</td>
+                    <td>EN</td>
+                    <td>~4292</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 elif selection == "Demo Analisis":
