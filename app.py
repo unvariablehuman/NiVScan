@@ -22,6 +22,7 @@ st.markdown("""
     /* Sidebar Header Text */
     section[data-testid="stSidebar"] h2 {
         color: #ffffff !important;
+        background-color: transparent !important;
     }
 
     /* Sidebar Divider */
@@ -29,19 +30,31 @@ st.markdown("""
         border-top: 1px solid rgba(255,255,255,0.3) !important;
     }
 
-    /* Force Light Mode Color for Sidebar elements */
+    /* Force Sidebar fonts to White & Remove Background Highlights */
     section[data-testid="stSidebar"] .stText, 
     section[data-testid="stSidebar"] h1, 
     section[data-testid="stSidebar"] label,
     section[data-testid="stSidebar"] .stRadio span,
-    section[data-testid="stSidebar"] p {
-        color: #1a1a1a !important;
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #ffffff !important;
+        background-color: transparent !important;
         font-weight: 500;
+        text-shadow: 0px 0px 2px rgba(0,0,0,0.2); /* Sedikit bayangan agar terbaca di area putih */
     }
 
-    /* Menyesuaikan warna bullet radio button */
+    /* Target specific Streamlit radio selection highlight to remove it */
+    div[data-testid="stSidebar"] div[role="radiogroup"] > label {
+        background-color: transparent !important;
+    }
+
+    /* Menyesuaikan warna bullet radio button menjadi putih agar serasi */
     input[type="radio"]:checked + div {
-        background-color: #c10a0a !important;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+    }
+    input[type="radio"] + div {
+        border-color: #ffffff !important;
     }
     
     /* Typography */
