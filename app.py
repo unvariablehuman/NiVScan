@@ -48,9 +48,13 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* Radio Button Styling - Clean White without selection highlight */
-    div[data-testid="stSidebar"] div[role="radiogroup"] label {
+    /* Radio Button Styling - Clean White and Larger text without selection highlight */
+    div[data-testid="stSidebar"] div[role="radiogroup"] label,
+    div[data-testid="stSidebar"] div[role="radiogroup"] label p,
+    div[data-testid="stSidebar"] div[role="radiogroup"] label span {
         color: #ffffff !important;
+        font-size: 18px !important;
+        font-weight: 500 !important;
     }
 
     /* Force all elements inside the radio group to have transparent background/shadow (removes selection/hover highlights of all shapes/versions) */
