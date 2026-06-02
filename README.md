@@ -1,12 +1,3 @@
----
-title: NiVScan
-emoji: 🦠
-colorFrom: red
-colorTo: blue
-sdk: streamlit
-app_file: nipah_ner_model/streamlit_app.py
-pinned: false
----
 # NiVScan: Nipah Virus Entity Extractor 
 
 NiVScan adalah tool berbasis Deep Learning untuk mendeteksi entitas (Named Entity Recognition) dalam teks berita atau medis terkait Virus Nipah. Proyek ini dikembangkan menggunakan **XLM-RoBERTa** dan library **spaCy** untuk memberikan ekstraksi informasi yang akurat mengenai lokasi, gejala, tanggal, dan detail medis lainnya terkait wabah Nipah.
