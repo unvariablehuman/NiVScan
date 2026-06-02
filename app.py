@@ -11,8 +11,8 @@ st.markdown("""
     /* 1. Import Font Modern dari Google Fonts */
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-    /* 2. Aplikasikan Font ke Seluruh Elemen */
-    html, body, [class*="css"], h1, h2, h3, h4, p, span, label, div {
+    /* 2. Aplikasikan Font HANYA ke elemen teks (menghindari kerusakan icon Streamlit) */
+    html, body, p, h1, h2, h3, h4, h5, h6, label {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
@@ -22,36 +22,20 @@ st.markdown("""
         color: #1a1a1a !important;
     }
     
-/* Sidebar Styling - Gradient Merah Putih */
+    /* Sidebar Styling - Gradasi Putih (Atas) ke Merah (Bawah) */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #c10a0a 0%, #ffffff 100%) !important;
+        background: linear-gradient(180deg, #ffffff 0%, #c10a0a 100%) !important;
+        border-right: none !important;
+    }
+
+    /* Memastikan teks menu atas tetap gelap/hitam agar kontras dengan putih */
+    div[data-testid="stSidebar"] div[role="radiogroup"] label {
+        background-color: transparent !important;
+        color: #1a1a1a !important; 
     }
     
-    /* Sidebar Text Colors & Transparency */
-    section[data-testid="stSidebar"] .stText, 
-    section[data-testid="stSidebar"] h1, 
-    section[data-testid="stSidebar"] h2,
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] span,
-    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
-        color: #ffffff !important;
-        background-color: transparent !important;
-        text-shadow: 0px 0px 2px rgba(0,0,0,0.2) !important;
-    }
-
-    /* Hide the "keyboard_double_left" text bug */
-    [data-testid="stSidebarCollapseIcon"] {
-        display: none !important;
-    }
-
-    /* Sidebar Divider */
-    section[data-testid="stSidebar"] hr {
-        border-top: 1px solid rgba(255,255,255,0.3) !important;
-    }
-
-    /* Merapikan Radio Button (Menu) agar clean tanpa blok warna aneh */
-    div[data-testid="stSidebar"] div[role="radiogroup"] label {
+    /* Menghilangkan blok warna abu-abu bawaan Streamlit pada menu pilihan */
+    div[data-testid="stSidebar"] .stRadio > div {
         background-color: transparent !important;
     }
     
@@ -175,10 +159,18 @@ def render_entities(entities):
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.markdown("<h2 style='text-align: center;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
-    st.markdown("---")
+    st.markdown("<h2 style='text-align: center; color: #c10a0a !important;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
+    st.markdown("<hr style='border-top: 1px solid #eaeaea;'>", unsafe_allow_html=True)
+    
     selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
-    # Status Model and Version removed as requested
+    
+    # Memberi jarak agar info status turun ke area gradasi yang merah
+    st.markdown("<br><br><br><br><br>", unsafe_allow_html=True)
+    
+    # Memaksa warna putih pada teks bawah agar terlihat jelas di background merah
+    st.markdown("<hr style='border-top: 1px solid rgba(255,255,255,0.4);'>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #ffffff !important; font-weight: 500; text-shadow: 0px 1px 3px rgba(0,0,0,0.3);'>✅ <b>Status Model:</b> Ready</p>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #ffffff !important; font-weight: 500; text-shadow: 0px 1px 3px rgba(0,0,0,0.3);'>🚀 <b>Version:</b> 2.1 (Model B)</p>", unsafe_allow_html=True)
 
 # --- MAIN CONTENT ---
 if selection == "Deskripsi":
@@ -227,6 +219,7 @@ elif selection == "Demo Analisis":
 
     user_input = st.text_area("Masukkan Kalimat Medis:", value=default_input, height=150)
 
+    # Logika tombol tetap mematuhi instruksimu: hasil keluar hanya setelah tombol diklik
     if st.button("Analisis Teks", use_container_width=True):
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
