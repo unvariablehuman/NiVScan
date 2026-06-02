@@ -250,8 +250,6 @@ if selection == "Deskripsi":
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("### Statistik Project")
-    st.image("https://raw.githubusercontent.com/unvariablehuman/NiVScan/main/Percobaan/Baru%20Banget/Model%20A/eda_label_distribution.png", caption="Distribusi Label dalam Dataset Pelatihan")
 
 elif selection == "Demo Analisis":
     st.markdown("<h1 style='color: #1a1a1a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
