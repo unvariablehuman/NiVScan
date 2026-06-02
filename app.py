@@ -236,8 +236,8 @@ def predict_and_patch(text, tokenizer, model):
             ent = label[2:]
             if prev_label not in [f'B-{ent}', f'I-{ent}']: label = f'B-{ent}'
             
-        if "DISEASE" in label: disease_count += 1
-        if "LOCATION" in label: loc_count += 1
+        if label == "B-DISEASE": disease_count += 1
+        if label == "B-LOCATION": loc_count += 1
         final_labels.append(label)
         prev_label = label
     return list(zip(words, final_labels)), disease_count, loc_count
