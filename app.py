@@ -133,7 +133,7 @@ def predict_and_patch(text, tokenizer, model):
     
     # Blacklist to prevent False Positives (Symptoms & Stopwords & Common Verbs)
     blacklist = {
-        'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 
+        'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 'deaths',
         'nausea', 'diarrhea', 'dizziness', 'weakness', 'pain', 'ache', 'signs', 
         'symptoms', 'illness', 'and', 'the', 'in', 'of', 'to', 'a', 'an', 'or',
         'causes', 'severe', 'brain', 'swelling', 'has', 'high', 'fatality', 'rate',
@@ -188,7 +188,7 @@ samples = {
     "Custom": "",
     "Kerala Outbreak": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients showing symptoms of high fever.",
     "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia. The disease causes severe brain swelling and has a high fatality rate in Southeast Asia.",
-    "Bangladesh Case": "Symptoms of Nipah virus include fever, headache, and cough. It can be transmitted from bats to humans or through contaminated food like raw date palm sap often found in Bangladesh."
+    "Scientific Case": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade."
 }
 
 selected_sample = st.selectbox("Quick Sample Select:", list(samples.keys()))
