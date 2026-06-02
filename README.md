@@ -1,18 +1,18 @@
-# NiVScan: Nipah Virus Entity Extractor 🦠
+# NiVScan: Nipah Virus Entity Extractor 
 
 NiVScan adalah tool berbasis Deep Learning untuk mendeteksi entitas (Named Entity Recognition) dalam teks berita atau medis terkait Virus Nipah. Proyek ini dikembangkan menggunakan **XLM-RoBERTa** dan library **spaCy** untuk memberikan ekstraksi informasi yang akurat mengenai lokasi, gejala, tanggal, dan detail medis lainnya terkait wabah Nipah.
 
 ## 🚀 Live Demo
 Aplikasi ini dapat diakses langsung melalui Hugging Face Spaces:
-👉 **[NiVScan on Hugging Face](https://huggingface.co/spaces/unvariablehuman/NiV-Scan)**
+ **[NiVScan on Hugging Face](https://huggingface.co/spaces/unvariablehuman/NiV-Scan)**
 
-## 📂 Struktur Proyek
+## Struktur Proyek
 - **Dataset/**: Berisi data mentah, data gabungan, dan label (Silver/Gold) yang digunakan untuk pelatihan.
 - **nipah_ner_model/**: Berisi model spaCy yang sudah ditraining dan aplikasi Streamlit.
 - **Percobaan/**: Dokumentasi berbagai model (Model A, B, C, D) dan eksperimen selama pengembangan.
 - **requirements.txt**: Daftar dependensi untuk menjalankan aplikasi.
 
-## 🛠️ Instalasi & Cara Menjalankan
+## Instalasi & Cara Menjalankan
 
 Jika ingin menjalankan secara lokal:
 
@@ -33,10 +33,10 @@ Jika ingin menjalankan secara lokal:
    streamlit run nipah_ner_model/streamlit_app.py
    ```
 
-## 🧠 Model
-Kami menggunakan arsitektur Transformer (XLM-RoBERTa) yang difine-tune khusus untuk dataset terkait Virus Nipah. Model ini mampu mengenali berbagai entitas medis dalam teks bahasa Inggris dan Indonesia.
+## Model
+Menggunakan arsitektur Transformer (XLM-RoBERTa) yang difine-tune khusus untuk dataset terkait Virus Nipah. Model ini mampu mengenali berbagai entitas medis dalam teks bahasa Inggris dan Indonesia.
 
-## 👥 Pengembang
+## Pengembang
 Dikembangkan oleh **Group 11 — NiVScan Project** untuk mata kuliah NLP (Semester 4 - BINUS University).
 
 ---
