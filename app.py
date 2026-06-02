@@ -1,168 +1,148 @@
-import streamlit as st
+﻿import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 # --- PAGE CONFIGURATION ---
-st.set_page_config(page_title="NiVScan NER", page_icon="🦠", layout="centered")
+st.set_page_config(page_title="NiVScan NER", page_icon="🦠", layout="wide")
 
-# --- CUSTOM CSS INJECTION ---
+# --- CUSTOM CSS (LIGHT MODE & SIDEBAR) ---
 st.markdown("""
 <style>
-    /* Typography & Headers */
-    h1, h2, h3 {
-        color: #f0f0f0 !important;
+    /* Global White Theme */
+    .stApp {
+        background-color: #ffffff !important;
+        color: #1a1a1a !important;
+    }
+    
+    /* Sidebar Styling */
+    section[data-testid="stSidebar"] {
+        background-color: #f8f9fa !important;
+        border-right: 1px solid #eeeeee;
+    }
+    
+    /* Force Light Mode Color for Sidebar elements */
+    section[data-testid="stSidebar"] .stText, 
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2, 
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stRadio span {
+        color: #1a1a1a !important;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, p, span, label, div {
+        color: #1a1a1a !important;
         font-family: 'Inter', sans-serif;
     }
     
+    /* Content Card */
+    .content-card {
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        margin-bottom: 20px;
+    }
+
     /* Extract Button Styling */
     div.stButton > button:first-child {
-        background-color: #c10a0a;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 24px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
-    div.stButton > button:first-child:hover {
-        background-color: #e61919;
-        box-shadow: 0 4px 15px rgba(193, 10, 10, 0.4);
-        transform: translateY(-2px);
+        background-color: #c10a0a !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 10px 24px !important;
+        font-weight: 600 !important;
+        width: 100% !important;
     }
     
     /* Text Area Input Styling */
     .stTextArea textarea {
-        background-color: #1a1a1a !important;
-        color: #ffffff !important;
-        border: 1px solid #333 !important;
-        border-radius: 8px;
-        padding: 15px;
-        font-size: 15px;
-        transition: border-color 0.3s ease;
+        background-color: #ffffff !important;
+        color: #1a1a1a !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 8px !important;
     }
-    .stTextArea textarea:focus {
-        border-color: #c10a0a !important;
-        box-shadow: 0 0 0 1px #c10a0a !important;
-    }
+
     /* Entity Highlight Styling */
     .entity-box {
-        line-height: 2.8; 
-        font-size: 18px; 
-        color: #d1d1d1;
-        background-color: #141414;
+        line-height: 2.5; 
+        font-size: 17px; 
+        color: #1a1a1a;
+        background-color: #f9f9f9;
         padding: 20px;
         border-radius: 10px;
-        border: 1px solid #2a2a2a;
+        border: 1px solid #eeeeee;
     }
     .tag-disease {
-        background: rgba(193, 10, 10, 0.15);
-        color: #ff6b6b;
-        border: 1px solid #c10a0a;
-        padding: 4px 10px;
-        border-radius: 6px;
-        margin: 0 3px;
+        background: #ffebee;
+        color: #c10a0a;
+        border: 1px solid #ffcdd2;
+        padding: 3px 8px;
+        border-radius: 4px;
         font-weight: 600;
         display: inline-block;
+        margin: 2px;
     }
     .tag-loc {
-        background: rgba(10, 193, 166, 0.15);
-        color: #2ee6c4;
-        border: 1px solid #0ac1a6;
-        padding: 4px 10px;
-        border-radius: 6px;
-        margin: 0 3px;
+        background: #e0f2f1;
+        color: #00796b;
+        border: 1px solid #b2dfdb;
+        padding: 3px 8px;
+        border-radius: 4px;
         font-weight: 600;
         display: inline-block;
+        margin: 2px;
     }
     .tag-sub {
         font-size: 0.65em;
         text-transform: uppercase;
-        opacity: 0.8;
-        margin-left: 5px;
-        letter-spacing: 0.5px;
-    }
-    
-    /* Footer Styling */
-    .footer-text {
-        text-align: center;
-        font-size: 12px;
-        color: #666;
-        margin-top: 50px;
+        opacity: 0.7;
+        margin-left: 4px;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# --- CACHE FUNCTION ---
+# --- FUNCTIONS ---
 @st.cache_resource
 def load_model():
-    # Folder path relative to repository structure
     model_path = "Percobaan/Baru Banget/Model B/model_b_best"
     tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=True)
     model = AutoModelForTokenClassification.from_pretrained(model_path)
     model.eval()
     return tokenizer, model
 
-# --- PREDICTION & POST-PROCESSING FUNCTION ---
 def predict_and_patch(text, tokenizer, model):
     words = text.split()
-    if not words:
-        return [], 0, 0
-
+    if not words: return [], 0, 0
     inputs = tokenizer(words, return_tensors="pt", truncation=True, max_length=128, is_split_into_words=True)
-    
     with torch.no_grad():
         outputs = model(**inputs)
-    
     predictions = torch.argmax(outputs.logits, dim=2)[0].cpu().numpy()
     word_ids = inputs.word_ids(batch_index=0)
-    
     raw_labels = []
     previous_word_idx = None
     for idx, word_idx in enumerate(word_ids):
-        if word_idx is None:
-            continue
+        if word_idx is None: continue
         if word_idx != previous_word_idx:
             raw_labels.append(model.config.id2label[predictions[idx]])
         previous_word_idx = word_idx
-        
     final_labels = []
     prev_label = 'O'
-    disease_count = 0
-    loc_count = 0
-    
-    # Blacklist to prevent False Positives (Symptoms & Stopwords & Common Verbs)
-    blacklist = {
-        'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 'deaths',
-        'nausea', 'diarrhea', 'dizziness', 'weakness', 'pain', 'ache', 'signs', 
-        'symptoms', 'illness', 'and', 'the', 'in', 'of', 'to', 'a', 'an', 'or',
-        'causes', 'severe', 'brain', 'swelling', 'has', 'high', 'fatality', 'rate',
-        'is', 'are', 'was', 'were', 'been', 'being', 'have', 'had', 'do', 'does',
-        'did', 'can', 'could', 'should', 'would', 'may', 'might', 'must'
-    }
-    
+    disease_count, loc_count = 0, 0
+    blacklist = {'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 'deaths', 'severe', 'brain', 'swelling', 'high', 'fatality', 'is', 'was', 'has'}
     for i, label in enumerate(raw_labels):
         word_clean = words[i].lower().strip('.,;:()[]"\'!?')
-        
-        # Apply blacklist
-        if word_clean in blacklist and 'DISEASE' in label:
-            label = 'O'
-            
-        # Fix IOB2 transitions (I- without B-)
+        if word_clean in blacklist and 'DISEASE' in label: label = 'O'
         if label.startswith('I-'):
             ent = label[2:]
-            if prev_label not in [f'B-{ent}', f'I-{ent}']:
-                label = f'B-{ent}'
-
+            if prev_label not in [f'B-{ent}', f'I-{ent}']: label = f'B-{ent}'
         if "DISEASE" in label: disease_count += 1
         if "LOCATION" in label: loc_count += 1
-                
         final_labels.append(label)
         prev_label = label
-        
     return list(zip(words, final_labels)), disease_count, loc_count
 
-# --- VISUALIZATION FUNCTION ---
 def render_entities(entities):
     html_text = ""
     for word, label in entities:
@@ -174,61 +154,78 @@ def render_entities(entities):
             html_text += f"{word} "
     return html_text
 
-# --- STREAMLIT UI ---
-# Header Section
-st.markdown("<h1 style='text-align: center; color: #c10a0a !important;'>🦠 NiVScan NER</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #a0a0a0; margin-bottom: 30px;'>Nipah Virus Entity Extractor powered by XLM-RoBERTa</p>", unsafe_allow_html=True)
+# --- SIDEBAR NAVIGATION ---
+with st.sidebar:
+    st.markdown("<h2 style='text-align: center;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
+    st.markdown("---")
+    selection = st.radio("Pilih Menu:", ["🏠 Deskripsi", "🔬 Demo Analisis"])
+    st.markdown("---")
+    st.markdown("**Status Model:** ✅ Ready")
+    st.markdown("**Version:** 2.1 (Model B)")
 
-# Load Model
-with st.spinner("Loading XLM-RoBERTa Model..."):
-    tokenizer, model = load_model()
+# --- MAIN CONTENT ---
+if selection == "🏠 Deskripsi":
+    st.markdown("<h1 style='color: #c10a0a !important;'>Tentang Project NiVScan</h1>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.markdown("""
+        <div class='content-card'>
+            <h3>Smart Nipah Virus NER</h3>
+            <p>NiVScan (Nipah Virus Scan) adalah platform berbasis AI untuk ekstraksi informasi otomatis dari teks medis. 
+            Sistem ini dikembangkan khusus untuk mengidentifikasi <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> 
+            dalam narasi berita atau jurnal ilmiah terkait Virus Nipah.</p>
+            <p>Dibangun menggunakan arsitektur <b>Transformer XLM-RoBERTa</b> untuk akurasi maksimal dalam konteks multibahasa.</p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class='content-card' style='background-color: #fdf2f2;'>
+            <h4>Dikembangkan Oleh:</h4>
+            <p><b>Group 11</b><br>NLP Project - BINUS</p>
+            <hr>
+            <p><small>Powered by Streamlit Cloud</small></p>
+        </div>
+        """, unsafe_allow_html=True)
 
-# Input Section
-samples = {
-    "Custom": "",
-    "Kerala Outbreak": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients showing symptoms of high fever.",
-    "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia. The disease causes severe brain swelling and has a high fatality rate in Southeast Asia.",
-    "Scientific Case": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade."
-}
+    st.markdown("### Statistik Project")
+    st.image("https://raw.githubusercontent.com/unvariablehuman/NiVScan/main/Percobaan/Baru%20Banget/Model%20A/eda_label_distribution.png", caption="Distribusi Label dalam Dataset Pelatihan")
 
-selected_sample = st.selectbox("Quick Sample Select:", list(samples.keys()))
-default_input = samples[selected_sample] if selected_sample != "Custom" else "Nipah virus (NiV) is a zoonotic pathogen causing outbreaks in Kerala, India, and Bangladesh with high mortality rates."
+elif selection == "🔬 Demo Analisis":
+    st.markdown("<h1 style='color: #c10a0a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
+    
+    with st.spinner("Memuat Model XLM-RoBERTa..."):
+        tokenizer, model = load_model()
 
-user_input = st.text_area("Enter Text / Medical News Sentence:", value=default_input, height=150)
+    samples = {
+        "Custom": "",
+        "Scientific Case": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade.",
+        "Kerala Outbreak": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients.",
+        "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia."
+    }
 
-# Analysis Logic
-if st.button("Analyze Text"):
-    if user_input.strip():
-        entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
-        
-        # --- DEEP ANALYSIS SECTION ---
-        st.markdown("### 📊 Deep Analysis")
-        m_col1, m_col2, m_col3 = st.columns(3)
-        with m_col1:
-            st.metric("Total Tokens", len(user_input.split()))
-        with m_col2:
-            st.metric("Disease Entities", disease_count)
-        with m_col3:
-            st.metric("Location Entities", loc_count)
+    selected_sample = st.selectbox("Pilih Contoh Kalimat:", list(samples.keys()))
+    default_input = samples[selected_sample] if selected_sample != "Custom" else ""
 
-        st.markdown("---")
-        st.markdown("### 🏷️ Extraction Results")
-        html_output = render_entities(entities)
-        
-        # Wrap result in an elegant box
-        st.markdown(f"<div class='entity-box'>{html_output}</div>", unsafe_allow_html=True)
-        
-        st.markdown("<br>", unsafe_allow_html=True)
-        
-        # Detail Table
-        with st.expander("View Token Details", expanded=False):
-            filtered_entities = [(w, l) for w, l in entities if l != 'O']
-            if filtered_entities:
-                st.table(filtered_entities)
-            else:
-                st.info("No DISEASE or LOCATION entities detected.")
-    else:
-        st.warning("Please enter some text first.")
+    user_input = st.text_area("Masukkan Kalimat Medis:", value=default_input, height=150)
 
-# Footer
-st.markdown("<div class='footer-text'>Developed by Group 11 - NiVScan Project<br>Powered by HuggingFace & Streamlit</div>", unsafe_allow_html=True)
+    if st.button("Analisis Teks 🔬"):
+        if user_input.strip():
+            entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
+            
+            # Metrics
+            m_col1, m_col2, m_col3 = st.columns(3)
+            with m_col1: st.metric("Total Kata", len(user_input.split()))
+            with m_col2: st.metric("Disease", disease_count)
+            with m_col3: st.metric("Location", loc_count)
+
+            st.markdown("---")
+            st.markdown("### 🏷️ Hasil Ekstraksi")
+            html_output = render_entities(entities)
+            st.markdown(f"<div class='entity-box'>{html_output}</div>", unsafe_allow_html=True)
+            
+            with st.expander("Lihat Detail Token"):
+                filtered = [(w, l) for w, l in entities if l != 'O']
+                if filtered: st.table(filtered)
+                else: st.info("Tidak ada entitas yang terdeteksi.")
