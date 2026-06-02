@@ -14,40 +14,34 @@ st.markdown("""
         color: #1a1a1a !important;
     }
     
-    /* Sidebar Styling */
+    /* Sidebar Styling - Gradient Merah Putih */
     section[data-testid="stSidebar"] {
-        background-color: #ffffff !important;
-        border-right: 1px solid #ffcccc;
+        background: linear-gradient(180deg, #c10a0a 0%, #ffffff 100%) !important;
     }
     
-    /* Sidebar Radio Button Styling (Merah Putih) */
-    div[data-testid="stSidebarNav"] {
-        background-color: #ffffff !important;
+    /* Sidebar Header Text */
+    section[data-testid="stSidebar"] h2 {
+        color: #ffffff !important;
     }
 
-    /* Target the radio button active state */
-    div.st-emotion-cache-6q9sum.e1f987" [data-testid="stMarkdownContainer"] p {
-        color: #c10a0a !important;
+    /* Sidebar Divider */
+    section[data-testid="stSidebar"] hr {
+        border-top: 1px solid rgba(255,255,255,0.3) !important;
     }
 
-    /* Gaya khusus untuk pilihan menu (Radio) agar terlihat merah saat dipilih */
-    div[data-testid="stWidgetLabel"] p {
-        color: #c10a0a !important;
-        font-weight: bold;
+    /* Force Light Mode Color for Sidebar elements */
+    section[data-testid="stSidebar"] .stText, 
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] .stRadio span,
+    section[data-testid="stSidebar"] p {
+        color: #1a1a1a !important;
+        font-weight: 500;
     }
 
     /* Menyesuaikan warna bullet radio button */
     input[type="radio"]:checked + div {
         background-color: #c10a0a !important;
-    }
-    
-    /* Force Light Mode Color for Sidebar elements */
-    section[data-testid="stSidebar"] .stText, 
-    section[data-testid="stSidebar"] h1, 
-    section[data-testid="stSidebar"] h2, 
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stRadio span {
-        color: #1a1a1a !important;
     }
     
     /* Typography */
