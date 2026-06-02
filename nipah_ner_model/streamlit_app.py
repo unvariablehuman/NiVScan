@@ -487,8 +487,19 @@ with tab1:
         st.markdown('<div class="section-label">Input Teks</div>', unsafe_allow_html=True)
         st.markdown('<div class="info-box">Masukkan teks berita, artikel, atau kalimat tentang virus Nipah dalam Bahasa Indonesia maupun Inggris.</div>', unsafe_allow_html=True)
 
+        samples = {
+            "Kosong": "",
+            "Sampel 1: Wabah di Kerala": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients showing symptoms of high fever and respiratory distress.",
+            "Sampel 2: Deteksi di Malaysia": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia. The disease causes severe brain swelling and has a high fatality rate in Southeast Asia.",
+            "Sampel 3: Gejala & Penularan": "Symptoms of Nipah virus include fever, headache, and cough. It can be transmitted from bats to humans or through contaminated food like raw date palm sap often found in Bangladesh."
+        }
+        
+        selected_sample = st.selectbox("Pilih contoh kalimat:", list(samples.keys()))
+        default_val = samples[selected_sample]
+
         input_text = st.text_area(
             label="",
+            value=default_val,
             placeholder="Contoh: Pasien di Kerala mengalami demam tinggi dan kejang akibat virus Nipah...",
             height=220,
             label_visibility="collapsed"
