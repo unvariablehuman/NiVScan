@@ -48,9 +48,28 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* Radio Button Styling - White on Red Background */
+    /* Radio Button Styling - Clean White without selection highlight */
     div[data-testid="stSidebar"] div[role="radiogroup"] label {
         color: #ffffff !important;
+        background-color: transparent !important;
+    }
+
+    /* REMOVE the white selection box background from radio menu */
+    div[data-testid="stSidebar"] .st-emotion-cache-6q9sum, 
+    div[data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    
+    /* Target the container that creates the white box background on selection */
+    div[data-testid="stSidebar"] [data-testid="stWidgetLabel"] + div {
+        background-color: transparent !important;
+    }
+    
+    /* Fix for latest Streamlit version selection highlight */
+    div[data-testid="stSidebar"] .st-emotion-cache-1offfwp,
+    div[data-testid="stSidebar"] .st-emotion-cache-1cvow48 {
+        background-color: transparent !important;
     }
     
     /* Menyesuaikan warna bullet radio button menjadi putih */
