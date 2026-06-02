@@ -220,10 +220,22 @@ def predict_and_patch(text, tokenizer, model):
     blacklist = {'fever', 'headache', 'myalgia', 'vomiting', 'cough', 'chills', 'fatigue', 'deaths', 'severe', 'brain', 'swelling', 'high', 'fatality', 'is', 'was', 'has'}
     for i, label in enumerate(raw_labels):
         word_clean = words[i].lower().strip('.,;:()[]"\'!?')
-        if word_clean in blacklist and 'DISEASE' in label: label = 'O'
+        
+        # Limit DISEASE to only words containing 'nipah', 'niv', 'henipavirus', or "virus" following a DISEASE
+        if 'DISEASE' in label:
+            is_valid_disease = False
+            if 'nipah' in word_clean or 'niv' in word_clean or 'henipavirus' in word_clean:
+                is_valid_disease = True
+            elif word_clean == 'virus' and ('DISEASE' in prev_label):
+                is_valid_disease = True
+                
+            if not is_valid_disease or word_clean in blacklist:
+                label = 'O'
+                
         if label.startswith('I-'):
             ent = label[2:]
             if prev_label not in [f'B-{ent}', f'I-{ent}']: label = f'B-{ent}'
+            
         if "DISEASE" in label: disease_count += 1
         if "LOCATION" in label: loc_count += 1
         final_labels.append(label)
