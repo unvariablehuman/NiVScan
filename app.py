@@ -22,26 +22,49 @@ st.markdown("""
         color: #1a1a1a !important;
     }
     
-    /* Sidebar Styling - Gradasi Putih (Atas) ke Merah (Bawah) */
+    /* Sidebar Styling - Elegant Deep Red */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #ffffff 0%, #c10a0a 100%) !important;
+        background: linear-gradient(180deg, #a10808 0%, #7d0606 100%) !important;
         border-right: none !important;
     }
 
-    /* Menghilangkan scrollbar di sidebar agar lebih clean */
-    section[data-testid="stSidebar"]::-webkit-scrollbar {
-        display: none;
-    }
-    section[data-testid="stSidebar"] {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+    /* Menghilangkan bug teks "keyboard_double..." dan icon collapse yang berantakan */
+    button[title="Collapse sidebar"], 
+    [data-testid="stSidebarCollapseIcon"],
+    section[data-testid="stSidebar"] span[data-testid="stMarkdownContainer"] p:empty {
+        display: none !important;
     }
 
-    /* Memastikan teks menu atas tetap gelap/hitam agar kontras dengan putih */
-    div[data-testid="stSidebar"] div[role="radiogroup"] label {
+    /* Memastikan semua teks di sidebar berwarna PUTIH agar kontras */
+    section[data-testid="stSidebar"] .stText, 
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        color: #ffffff !important;
         background-color: transparent !important;
-        color: #1a1a1a !important; 
+        font-weight: 500;
     }
+
+    /* Radio Button Styling - White on Red Background */
+    div[data-testid="stSidebar"] div[role="radiogroup"] label {
+        color: #ffffff !important;
+    }
+    
+    /* Menyesuaikan warna bullet radio button menjadi putih */
+    input[type="radio"]:checked + div {
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+    }
+    input[type="radio"] + div {
+        border-color: rgba(255,255,255,0.6) !important;
+    }
+
+    /* Menghilangkan scrollbar di sidebar */
+    section[data-testid="stSidebar"]::-webkit-scrollbar { display: none; }
+    section[data-testid="stSidebar"] { -ms-overflow-style: none; scrollbar-width: none; }
     
     /* Menghilangkan blok warna abu-abu bawaan Streamlit pada menu pilihan */
     div[data-testid="stSidebar"] .stRadio > div {
