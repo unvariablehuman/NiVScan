@@ -5,62 +5,49 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="NiVScan NER", page_icon="🦠", layout="wide")
 
-# --- CUSTOM CSS (FORCE LIGHT MODE & SIDEBAR) ---
+# --- CUSTOM CSS (CLEAN THEME & GOOGLE FONTS) ---
 st.markdown("""
 <style>
+    /* 1. Import Font Modern dari Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    /* 2. Aplikasikan Font ke Seluruh Elemen */
+    html, body, [class*="css"], h1, h2, h3, h4, p, span, label, div {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
     /* Global White Theme */
     .stApp {
         background-color: #ffffff !important;
         color: #1a1a1a !important;
     }
     
-    /* Sidebar Styling - Gradient Merah Putih */
+    /* Sidebar Styling - Clean White */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #c10a0a 0%, #ffffff 100%) !important;
+        background-color: #ffffff !important;
+        border-right: 1px solid #eaeaea !important;
     }
     
-    /* Sidebar Header Text */
-    section[data-testid="stSidebar"] h2 {
-        color: #ffffff !important;
+    /* Sidebar Text Colors (Mencegah teks menghilang) */
+    section[data-testid="stSidebar"] .stText, 
+    section[data-testid="stSidebar"] h1, 
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span {
+        color: #1a1a1a !important;
         background-color: transparent !important;
+        text-shadow: none !important;
     }
 
     /* Sidebar Divider */
     section[data-testid="stSidebar"] hr {
-        border-top: 1px solid rgba(255,255,255,0.3) !important;
+        border-top: 1px solid #eaeaea !important;
     }
 
-    /* Force Sidebar fonts to White & Remove Background Highlights */
-    section[data-testid="stSidebar"] .stText, 
-    section[data-testid="stSidebar"] h1, 
-    section[data-testid="stSidebar"] label,
-    section[data-testid="stSidebar"] .stRadio span,
-    section[data-testid="stSidebar"] p,
-    section[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
-        color: #ffffff !important;
+    /* Merapikan Radio Button (Menu) agar clean tanpa blok warna aneh */
+    div[data-testid="stSidebar"] div[role="radiogroup"] label {
         background-color: transparent !important;
-        font-weight: 500;
-        text-shadow: 0px 0px 2px rgba(0,0,0,0.2); /* Sedikit bayangan agar terbaca di area putih */
-    }
-
-    /* Target specific Streamlit radio selection highlight to remove it */
-    div[data-testid="stSidebar"] div[role="radiogroup"] > label {
-        background-color: transparent !important;
-    }
-
-    /* Menyesuaikan warna bullet radio button menjadi putih agar serasi */
-    input[type="radio"]:checked + div {
-        background-color: #ffffff !important;
-        border-color: #ffffff !important;
-    }
-    input[type="radio"] + div {
-        border-color: #ffffff !important;
-    }
-    
-    /* Typography */
-    h1, h2, h3, h4, p, span, label, div {
-        color: #1a1a1a !important;
-        font-family: 'Inter', sans-serif;
     }
     
     /* Content Card */
@@ -81,7 +68,6 @@ st.markdown("""
         border-radius: 8px !important;
         padding: 10px 24px !important;
         font-weight: 600 !important;
-        width: 100% !important;
     }
     
     /* Text Area Input Styling */
@@ -184,7 +170,7 @@ def render_entities(entities):
 
 # --- SIDEBAR NAVIGATION ---
 with st.sidebar:
-    st.markdown("<h2 style='text-align: center;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: #c10a0a !important;'>🦠 NiVScan</h2>", unsafe_allow_html=True)
     st.markdown("---")
     selection = st.radio("Pilih Menu:", ["Deskripsi", "Demo Analisis"])
     st.markdown("---")
@@ -193,13 +179,13 @@ with st.sidebar:
 
 # --- MAIN CONTENT ---
 if selection == "Deskripsi":
-    st.markdown("<h1 style='color: #c10a0a !important;'>Tentang Project NiVScan</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #1a1a1a !important;'>Tentang Project NiVScan</h1>", unsafe_allow_html=True)
     
     col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown("""
         <div class='content-card'>
-            <h3>Smart Nipah Virus NER</h3>
+            <h3 style='margin-top: 0;'>Smart Nipah Virus NER</h3>
             <p>NiVScan (Nipah Virus Scan) adalah platform berbasis AI untuk ekstraksi informasi otomatis dari teks medis. 
             Sistem ini dikembangkan khusus untuk mengidentifikasi <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> 
             dalam narasi berita atau jurnal ilmiah terkait Virus Nipah.</p>
@@ -209,11 +195,11 @@ if selection == "Deskripsi":
     
     with col2:
         st.markdown("""
-        <div class='content-card' style='background-color: #fdf2f2;'>
-            <h4>Dikembangkan Oleh:</h4>
+        <div class='content-card' style='background-color: #fcfcfc;'>
+            <h4 style='margin-top: 0;'>Dikembangkan Oleh:</h4>
             <p><b>Group 11</b><br>NLP Project - BINUS</p>
-            <hr>
-            <p><small>Powered by Streamlit Cloud</small></p>
+            <hr style='border-top: 1px solid #eaeaea;'>
+            <p><small style='color: #666;'>Powered by Streamlit Cloud</small></p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -221,7 +207,7 @@ if selection == "Deskripsi":
     st.image("https://raw.githubusercontent.com/unvariablehuman/NiVScan/main/Percobaan/Baru%20Banget/Model%20A/eda_label_distribution.png", caption="Distribusi Label dalam Dataset Pelatihan")
 
 elif selection == "Demo Analisis":
-    st.markdown("<h1 style='color: #c10a0a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color: #1a1a1a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
     
     with st.spinner("Memuat Model XLM-RoBERTa..."):
         tokenizer, model = load_model()
@@ -238,7 +224,7 @@ elif selection == "Demo Analisis":
 
     user_input = st.text_area("Masukkan Kalimat Medis:", value=default_input, height=150)
 
-    if st.button("Analisis Teks"):
+    if st.button("Analisis Teks", use_container_width=True):
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
             
