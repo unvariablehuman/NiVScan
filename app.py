@@ -349,13 +349,8 @@ if selection == "Deskripsi":
         st.markdown("""
         <div class='content-card' style='border-left: 5px solid #c10a0a;'>
             <h3 style='margin-top: 0; color: #1a1a1a; font-weight: 700;'>Analisis Entitas Medis Cerdas (NER)</h3>
-            <p style='line-height: 1.6; color: #4a5568;'>
-                Selamat datang di <b>NiVScan</b>! Kami menghadirkan platform cerdas berbasis AI yang dirancang untuk mempermudah pemindaian dokumen medis Anda secara instan.
-                Sistem ini dilatih secara khusus untuk mendeteksi serta mengklasifikasikan informasi penting seperti <b>Nama Penyakit (Disease)</b> dan <b>Lokasi Kejadian (Location)</b> 
-                dari berbagai teks berita medis, laporan epidemiologi, hingga jurnal ilmiah terkait wabah Virus Nipah.
-            </p>
             <p style='line-height: 1.6; color: #4a5568; margin-bottom: 0;'>
-                Ditenagai oleh arsitektur model canggih <b>XLM-RoBERTa</b>, sistem ini bekerja cerdas mengenali entitas dalam berbagai bahasa (multilingual), baik teks berbahasa Indonesia maupun Inggris, demi mendukung riset dan pelacakan data kesehatan yang lebih efisien.
+                <b>NiVScan (Nipah Virus Scanner)</b> adalah platform ekstraksi informasi berbasis AI yang dirancang untuk menganalisis teks medis, laporan epidemiologi, dan jurnal ilmiah. Menggunakan arsitektur mutakhir <b>XLM-RoBERTa</b>, sistem ini secara otomatis mendeteksi dan mengklasifikasikan entitas krusial seperti <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> dalam konteks wabah Virus Nipah. Dengan kapabilitas multilingual (Indonesia dan Inggris), NiVScan hadir untuk mendukung efisiensi riset dan pelacakan data kesehatan.
             </p>
         </div>
         """, unsafe_allow_html=True)
