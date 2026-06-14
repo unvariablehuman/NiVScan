@@ -422,16 +422,18 @@ elif selection == "Demo Analisis":
         tokenizer, model = load_model()
 
     samples = {
-        "Pilih Contoh...": "",
-        "Scientific Case": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade.",
-        "Kerala Outbreak": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients.",
-        "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia."
+        "Pilih Contoh Kalimat...": "",
+        "Kasus Ilmiah / Jurnal (B. Inggris)": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade.",
+        "Wabah Medis di Kerala (B. Inggris)": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients.",
+        "Sejarah Kasus di Malaysia (B. Inggris)": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia.",
+        "Pencegahan Wabah di Indonesia (B. Indonesia)": "Pemerintah memantau ketat masuknya kelelawar buah sebagai antisipasi penyebaran virus Nipah di Indonesia.",
+        "Laporan Kasus Baru di India (B. Indonesia)": "Kasus virus Nipah kembali ditemukan di daerah Kerala setelah beberapa warga mengalami gejala demam tinggi."
     }
 
-    selected_sample = st.selectbox("Pilih Contoh Kalimat:", list(samples.keys()))
+    selected_sample = st.selectbox("Pilih Contoh Kalimat Medis:", list(samples.keys()))
     
     # 1. Placeholder yang Informatif
-    placeholder_text = "Masukkan teks medis di sini, contoh: 'Nipah virus cases were reported in Malaysia...'"
+    placeholder_text = "Masukkan teks medis di sini, contoh: 'Nipah virus cases were reported in Malaysia...' atau 'Kasus virus Nipah di Indonesia...'"
     user_input = st.text_area("Masukkan Kalimat Medis:", value=samples[selected_sample], height=150, placeholder=placeholder_text)
 
     # 2. Tombol Analisis
