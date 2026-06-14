@@ -103,22 +103,81 @@ st.markdown("""
         margin-bottom: 20px;
     }
 
-    /* Extract Button Styling */
-    div.stButton > button:first-child {
-        background-color: #c10a0a !important;
+    /* Extract Button Styling - Primary */
+    button[data-testid="baseButton-primary"] {
+        background: linear-gradient(135deg, #c10a0a 0%, #e11d48 100%) !important;
         color: white !important;
         border: none !important;
         border-radius: 8px !important;
         padding: 10px 24px !important;
         font-weight: 600 !important;
+        box-shadow: 0 4px 12px rgba(193, 10, 10, 0.2) !important;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        width: 100% !important;
+    }
+    button[data-testid="baseButton-primary"]:hover {
+        background: linear-gradient(135deg, #d91414 0%, #f43f5e 100%) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 6px 18px rgba(193, 10, 10, 0.3) !important;
+    }
+    button[data-testid="baseButton-primary"]:active {
+        transform: translateY(1px) !important;
+    }
+
+    /* Clear Button Styling - Secondary */
+    button[data-testid="baseButton-secondary"] {
+        background-color: #f8fafc !important;
+        color: #64748b !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 8px !important;
+        padding: 8px 20px !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+        width: 100% !important;
+    }
+    button[data-testid="baseButton-secondary"]:hover {
+        background-color: #fef2f2 !important;
+        color: #ef4444 !important;
+        border-color: #fee2e2 !important;
+        box-shadow: 0 4px 6px rgba(239, 68, 68, 0.05) !important;
     }
     
     /* Text Area Input Styling */
-    .stTextArea textarea {
+    div[data-testid="stTextArea"] textarea {
         background-color: #ffffff !important;
         color: #1a1a1a !important;
-        border: 1px solid #cccccc !important;
-        border-radius: 8px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 10px !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+        transition: all 0.3s ease !important;
+        font-size: 15px !important;
+        line-height: 1.6 !important;
+        padding: 12px 15px !important;
+    }
+    div[data-testid="stTextArea"] textarea:focus {
+        border-color: #c10a0a !important;
+        box-shadow: 0 0 0 3px rgba(193, 10, 10, 0.15) !important;
+    }
+
+    /* Selectbox Input Styling */
+    div[data-baseweb="select"] > div {
+        background-color: #ffffff !important;
+        border-radius: 10px !important;
+        border: 1px solid #e2e8f0 !important;
+        transition: all 0.3s ease !important;
+        font-size: 15px !important;
+    }
+    div[data-baseweb="select"]:focus-within > div {
+        border-color: #c10a0a !important;
+        box-shadow: 0 0 0 3px rgba(193, 10, 10, 0.15) !important;
+    }
+    
+    /* Widget Labels */
+    label[data-testid="stWidgetLabel"] p {
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: #334155 !important;
+        margin-bottom: 8px !important;
     }
 
     /* Entity Highlight Styling */
@@ -369,19 +428,43 @@ elif selection == "Demo Analisis":
         "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia."
     }
 
-    selected_sample = st.selectbox("Pilih Contoh Kalimat:", list(samples.keys()))
+    # Initialize state variables
+    if "text_input" not in st.session_state:
+        st.session_state.text_input = ""
+    if "sample_selection" not in st.session_state:
+        st.session_state.sample_selection = "Pilih Contoh..."
+
+    # Callback when selectbox changes
+    def update_sample():
+        st.session_state.text_input = samples[st.session_state.sample_selection]
+
+    selected_sample = st.selectbox(
+        "Pilih Contoh Kalimat:", 
+        list(samples.keys()), 
+        key="sample_selection", 
+        on_change=update_sample
+    )
     
     # 1. Placeholder yang Informatif
     placeholder_text = "Masukkan teks medis di sini, contoh: 'Nipah virus cases were reported in Malaysia...'"
-    user_input = st.text_area("Masukkan Kalimat Medis:", value=samples[selected_sample], height=150, placeholder=placeholder_text)
+    user_input = st.text_area(
+        "Masukkan Kalimat Medis:", 
+        key="text_input", 
+        height=150, 
+        placeholder=placeholder_text
+    )
 
     # 2. Tombol Clear dan Analisis
     col_btn1, col_btn2 = st.columns([1, 4])
     with col_btn1:
-        if st.button("Hapus"):
+        if st.button("Hapus", type="secondary", use_container_width=True):
+            st.session_state.text_input = ""
+            st.session_state.sample_selection = "Pilih Contoh..."
             st.rerun() # Refresh halaman untuk membersihkan input
+    with col_btn2:
+        analyze_clicked = st.button("Analisis Teks", type="primary", use_container_width=True)
     
-    if st.button("Analisis Teks", use_container_width=True):
+    if analyze_clicked:
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
             
