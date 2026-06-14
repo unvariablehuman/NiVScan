@@ -350,7 +350,7 @@ if selection == "Deskripsi":
         <div class='content-card' style='border-left: 5px solid #c10a0a;'>
             <h3 style='margin-top: 0; color: #1a1a1a; font-weight: 700;'>Analisis Entitas Medis Cerdas (NER)</h3>
             <p style='line-height: 1.6; color: #4a5568; margin-bottom: 0;'>
-                <b>NiVScan (Nipah Virus Scanner)</b> adalah platform ekstraksi informasi berbasis AI yang dirancang untuk menganalisis teks medis, laporan epidemiologi, dan jurnal ilmiah. Menggunakan arsitektur mutakhir <b>XLM-RoBERTa</b>, sistem ini secara otomatis mendeteksi dan mengklasifikasikan entitas krusial seperti <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> dalam konteks wabah Virus Nipah. Dengan kapabilitas multilingual (Indonesia dan Inggris), NiVScan hadir untuk mendukung efisiensi riset dan pelacakan data kesehatan.
+                <b>NiVScan (Nipah Virus Scanner)</b> adalah platform ekstraksi informasi berbasis AI yang dirancang untuk menganalisis teks medis, laporan epidemiologi, dan jurnal ilmiah. Menggunakan arsitektur <b>XLM-RoBERTa</b>, sistem ini secara otomatis mendeteksi dan mengklasifikasikan entitas krusial seperti <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> dalam konteks wabah Virus Nipah. Dengan kapabilitas multilingual (Indonesia dan Inggris), NiVScan hadir untuk mendukung efisiensi riset dan pelacakan data kesehatan.
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -412,6 +412,85 @@ if selection == "Deskripsi":
         </table>
     </div>
     """, unsafe_allow_html=True)
+
+    # Model Performance Section
+    st.markdown("""
+    <div class='content-card'>
+        <h3 class='section-title' style='margin-top: 0;'>Performa Model (Gold Test Evaluation)</h3>
+        <p style='color: #4a5568; font-size: 14px; margin-bottom: 20px;'>
+            Hasil evaluasi performa model <b>XLM-RoBERTa-base</b> pada dataset uji emas (Gold Test Dataset) yang terdiri dari <b>536 kalimat</b> dan <b>11.279 token</b>:
+        </p>
+        
+        <!-- Metric Cards Grid -->
+        <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 25px;'>
+            <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center;'>
+                <div style='font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;'>Macro F1-Score</div>
+                <div style='font-size: 28px; font-weight: 700; color: #c10a0a; margin-top: 5px;'>75.89%</div>
+            </div>
+            <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center;'>
+                <div style='font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;'>Macro Precision</div>
+                <div style='font-size: 28px; font-weight: 700; color: #1e293b; margin-top: 5px;'>68.01%</div>
+            </div>
+            <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center;'>
+                <div style='font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;'>Macro Recall</div>
+                <div style='font-size: 28px; font-weight: 700; color: #1e293b; margin-top: 5px;'>91.33%</div>
+            </div>
+            <div style='background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: center;'>
+                <div style='font-size: 12px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;'>MCC Score</div>
+                <div style='font-size: 28px; font-weight: 700; color: #1e293b; margin-top: 5px;'>0.6793</div>
+            </div>
+        </div>
+
+        <!-- Class Performance Table -->
+        <table class='dataset-table' style='margin-bottom: 5px;'>
+            <thead>
+                <tr>
+                    <th style='text-align: left;'>Kelas Entitas</th>
+                    <th>Precision</th>
+                    <th>Recall</th>
+                    <th>F1-Score</th>
+                    <th>Support</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style='text-align: left; font-weight: 600;'>DISEASE</td>
+                    <td>45.83%</td>
+                    <td>91.35%</td>
+                    <td style='font-weight: 600; color: #c10a0a;'>61.04%</td>
+                    <td>289</td>
+                </tr>
+                <tr>
+                    <td style='text-align: left; font-weight: 600;'>LOCATION</td>
+                    <td>90.18%</td>
+                    <td>91.30%</td>
+                    <td style='font-weight: 600; color: #c10a0a;'>90.74%</td>
+                    <td>161</td>
+                </tr>
+                <tr style='background-color: #f8fafc;'>
+                    <td style='text-align: left; font-weight: 600;'>Macro Average</td>
+                    <td>68.01%</td>
+                    <td>91.33%</td>
+                    <td style='font-weight: 600; color: #c10a0a;'>75.89%</td>
+                    <td>450</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Performance Visualizations
+    st.markdown("""
+    <div style='margin-bottom: -15px;'>
+        <h3 class='section-title' style='margin-top: 10px; margin-bottom: 15px;'>Visualisasi Analisis Performa</h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col_img1, col_img2 = st.columns(2)
+    with col_img1:
+        st.image("Percobaan/Baru Banget/Model B/model_b_confusion_matrix.png", caption="Confusion Matrix Model B", use_column_width=True)
+    with col_img2:
+        st.image("Percobaan/Baru Banget/Model B/model_b_per_entity_f1.png", caption="Per-Entity F1-Score Model B", use_column_width=True)
 
 
 elif selection == "Demo Analisis":
