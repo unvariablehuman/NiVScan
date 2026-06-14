@@ -359,22 +359,28 @@ if selection == "Deskripsi":
 elif selection == "Demo Analisis":
     st.markdown("<h1 style='color: #1a1a1a !important;'>Uji Coba Ekstraksi</h1>", unsafe_allow_html=True)
     
-    with st.spinner("Memuat Model XLM-RoBERTa..."):
+    with st.spinner("Memuat Model..."):
         tokenizer, model = load_model()
 
     samples = {
-        "Custom": "",
+        "Pilih Contoh...": "",
         "Scientific Case": "Using NiV as an important paramyxoviral model, we identified two novel regions in F that modulate the membrane fusion cascade.",
         "Kerala Outbreak": "The Nipah virus outbreak in Kerala has caused several deaths. Local authorities in Kozhikode are monitoring people who had contact with infected patients.",
         "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia."
     }
 
     selected_sample = st.selectbox("Pilih Contoh Kalimat:", list(samples.keys()))
-    default_input = samples[selected_sample] if selected_sample != "Custom" else ""
+    
+    # 1. Placeholder yang Informatif
+    placeholder_text = "Masukkan teks medis di sini, contoh: 'Nipah virus cases were reported in Malaysia...'"
+    user_input = st.text_area("Masukkan Kalimat Medis:", value=samples[selected_sample], height=150, placeholder=placeholder_text)
 
-    user_input = st.text_area("Masukkan Kalimat Medis:", value=default_input, height=150)
-
-    # Logika tombol tetap mematuhi instruksimu: hasil keluar hanya setelah tombol diklik
+    # 2. Tombol Clear dan Analisis
+    col_btn1, col_btn2 = st.columns([1, 4])
+    with col_btn1:
+        if st.button("Hapus"):
+            st.rerun() # Refresh halaman untuk membersihkan input
+    
     if st.button("Analisis Teks", use_container_width=True):
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
@@ -389,6 +395,10 @@ elif selection == "Demo Analisis":
             st.markdown("### Hasil Ekstraksi")
             html_output = render_entities(entities)
             st.markdown(f"<div class='entity-box'>{html_output}</div>", unsafe_allow_html=True)
+            
+            # 3. Fitur Copy to Clipboard (Menggunakan text sederhana)
+            st.text_area("Salin Hasil (Plain Text):", value=user_input, disabled=True, label_visibility="collapsed")
+            st.caption("Hasil di atas adalah teks asli yang telah dianalisis.")
             
             with st.expander("Lihat Detail Token"):
                 filtered = [(w, l) for w, l in entities if l != 'O']
