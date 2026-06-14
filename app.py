@@ -347,22 +347,26 @@ if selection == "Deskripsi":
     col1, col2 = st.columns([2, 1])
     with col1:
         st.markdown("""
-        <div class='content-card'>
-            <h3 style='margin-top: 0;'>Smart Nipah Virus NER</h3>
-            <p>NiVScan (Nipah Virus Scan) adalah platform berbasis AI untuk ekstraksi informasi otomatis dari teks medis. 
-            Sistem ini dikembangkan khusus untuk mengidentifikasi <b>Penyakit (Disease)</b> dan <b>Lokasi (Location)</b> 
-            dalam narasi berita atau jurnal ilmiah terkait Virus Nipah.</p>
-            <p>Dibangun menggunakan arsitektur <b>Transformer XLM-RoBERTa</b> untuk akurasi maksimal dalam konteks multibahasa.</p>
+        <div class='content-card' style='border-left: 5px solid #c10a0a;'>
+            <h3 style='margin-top: 0; color: #1a1a1a; font-weight: 700;'>Analisis Entitas Medis Cerdas (NER)</h3>
+            <p style='line-height: 1.6; color: #4a5568;'>
+                Selamat datang di <b>NiVScan</b>! Kami menghadirkan platform cerdas berbasis AI yang dirancang untuk mempermudah pemindaian dokumen medis Anda secara instan.
+                Sistem ini dilatih secara khusus untuk mendeteksi serta mengklasifikasikan informasi penting seperti <b>Nama Penyakit (Disease)</b> dan <b>Lokasi Kejadian (Location)</b> 
+                dari berbagai teks berita medis, laporan epidemiologi, hingga jurnal ilmiah terkait wabah Virus Nipah.
+            </p>
+            <p style='line-height: 1.6; color: #4a5568; margin-bottom: 0;'>
+                Ditenagai oleh arsitektur model canggih <b>XLM-RoBERTa</b>, sistem ini bekerja cerdas mengenali entitas dalam berbagai bahasa (multilingual), baik teks berbahasa Indonesia maupun Inggris, demi mendukung riset dan pelacakan data kesehatan yang lebih efisien.
+            </p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        <div class='content-card' style='background-color: #fcfcfc;'>
-            <h4 style='margin-top: 0;'>Dikembangkan Oleh:</h4>
-            <p><b>Group 11</b><br>NLP Project - BINUS</p>
-            <hr style='border-top: 1px solid #eaeaea;'>
-            <p><small style='color: #666;'>Powered by Streamlit Cloud</small></p>
+        <div class='content-card' style='background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0;'>
+            <h4 style='margin-top: 0; color: #1a1a1a; font-weight: 600;'>Tim Pengembang</h4>
+            <p style='color: #4a5568; font-size: 15px;'><b>Kelompok 11</b><br>NLP Project — BINUS University</p>
+            <hr style='border-top: 1px solid #e2e8f0; margin: 15px 0;'>
+            <p style='margin: 0;'><small style='color: #94a3b8;'>Ditenagai oleh Streamlit Cloud & Hugging Face</small></p>
         </div>
         """, unsafe_allow_html=True)
 
