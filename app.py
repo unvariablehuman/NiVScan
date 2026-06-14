@@ -359,7 +359,7 @@ if selection == "Deskripsi":
         st.markdown("""
         <div class='content-card' style='background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%); border: 1px solid #e2e8f0;'>
             <h4 style='margin-top: 0; color: #1a1a1a; font-weight: 600;'>Tim Pengembang</h4>
-            <p style='color: #4a5568; font-size: 15px;'><b>Kelompok 11</b><br>NLP Project — BINUS University</p>
+            <p style='color: #4a5568; font-size: 15px;'><b>Kelompok 11 (LA01)</b><br>NLP Project — BINUS University</p>
             <hr style='border-top: 1px solid #e2e8f0; margin: 15px 0;'>
             <p style='margin: 0;'><small style='color: #94a3b8;'>Powered by Streamlit & Hugging Face</small></p>
         </div>
