@@ -428,43 +428,14 @@ elif selection == "Demo Analisis":
         "Malaysia History": "Nipah virus was first identified in 1999 during an outbreak among pig farmers in Malaysia."
     }
 
-    # Initialize state variables
-    if "text_input" not in st.session_state:
-        st.session_state.text_input = ""
-    if "sample_selection" not in st.session_state:
-        st.session_state.sample_selection = "Pilih Contoh..."
-
-    # Callback when selectbox changes
-    def update_sample():
-        st.session_state.text_input = samples[st.session_state.sample_selection]
-
-    selected_sample = st.selectbox(
-        "Pilih Contoh Kalimat:", 
-        list(samples.keys()), 
-        key="sample_selection", 
-        on_change=update_sample
-    )
+    selected_sample = st.selectbox("Pilih Contoh Kalimat:", list(samples.keys()))
     
     # 1. Placeholder yang Informatif
     placeholder_text = "Masukkan teks medis di sini, contoh: 'Nipah virus cases were reported in Malaysia...'"
-    user_input = st.text_area(
-        "Masukkan Kalimat Medis:", 
-        key="text_input", 
-        height=150, 
-        placeholder=placeholder_text
-    )
+    user_input = st.text_area("Masukkan Kalimat Medis:", value=samples[selected_sample], height=150, placeholder=placeholder_text)
 
-    # 2. Tombol Clear dan Analisis
-    col_btn1, col_btn2 = st.columns([1, 4])
-    with col_btn1:
-        if st.button("Hapus", type="secondary", use_container_width=True):
-            st.session_state.text_input = ""
-            st.session_state.sample_selection = "Pilih Contoh..."
-            st.rerun() # Refresh halaman untuk membersihkan input
-    with col_btn2:
-        analyze_clicked = st.button("Analisis Teks", type="primary", use_container_width=True)
-    
-    if analyze_clicked:
+    # 2. Tombol Analisis
+    if st.button("Analisis Teks", type="primary", use_container_width=True):
         if user_input.strip():
             entities, disease_count, loc_count = predict_and_patch(user_input, tokenizer, model)
             
