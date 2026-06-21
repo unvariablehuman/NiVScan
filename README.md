@@ -121,7 +121,6 @@ Experimental notebooks and training processes are available through Kaggle:
 
 | Resource | Link |
 |---|---|
-| GitHub Repository | [github.com/unvariablehuman/NiVScan](https://github.com/unvariablehuman/NiVScan) |
 | Streamlit Application | [niv-scan.streamlit.app](https://niv-scan.streamlit.app/) |
 | Presentation Slides (Canva) | [canva.link/m57yszmgne9r9e2](https://canva.link/m57yszmgne9r9e2) |
 | Application Demo Files | [Google Drive Folder](https://drive.google.com/drive/folders/19TAjEBCbtzJj7zEesztthwtWM2APSzho?usp=sharing) |
